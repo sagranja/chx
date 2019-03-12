@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_08_033808) do
 
+ActiveRecord::Schema.define(version: 2019_03_12_014340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,6 +37,56 @@ ActiveRecord::Schema.define(version: 2019_03_08_033808) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_views_on_email", unique: true
     t.index ["reset_password_token"], name: "index_views_on_reset_password_token", unique: true
+  end
+
+  create_table "avatars", force: :cascade do |t|
+    t.integer "u_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_avatars_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "user_name"
+    t.integer "game_id"
+    t.string "text"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.integer "u_id"
+    t.string "name"
+    t.integer "white_player"
+    t.integer "black_player"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["u_id"], name: "index_games_on_u_id"
+  end
+
+  create_table "pieces", force: :cascade do |t|
+    t.integer "u_id"
+    t.integer "position_x"
+    t.integer "position_y"
+    t.string "name"
+    t.string "color"
+    t.integer "game_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["u_id"], name: "index_pieces_on_u_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.integer "u_id"
+    t.string "email"
+    t.string "user_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["u_id"], name: "index_users_on_u_id"
   end
 
 end
