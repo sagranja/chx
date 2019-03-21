@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(version: 2019_03_20_051855) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "games", force: :cascade do |t|
+    t.string "name"
+    t.integer "white_player"
+    t.integer "black_player"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "kings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
