@@ -18,17 +18,14 @@ RSpec.describe GamesController, type: :controller do
 
   describe "games#create action" do
     
-    it "should successfully create a new game in our database"
+    it "should successfully create a new game" do
       post :create, params: {
         game: {
-          name: 'New Game'
-          white_player: 1
-          black_player: 2
-          active: true
+          name: "New Game", white_player: 1, black_player: 2 
         }
       } 
+      expect(response).to have_http_status(:success)
       expect(game.name).to eq("New Game")
-      expect(game.active).to eq(true)
     end
   end
 end
