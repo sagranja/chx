@@ -1,5 +1,6 @@
 class Piece < ApplicationRecord
   belongs_to :game
+
   # self.inheritance_column = :type (default)
 
   def color
@@ -16,4 +17,4 @@ class Piece < ApplicationRecord
   
   def is_obstructed?
   end
-end
+
