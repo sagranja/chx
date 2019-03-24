@@ -18,3 +18,4 @@ class Piece < ApplicationRecord
   def is_obstructed?
   end
 
+end
