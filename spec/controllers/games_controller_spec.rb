@@ -27,5 +27,11 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to have_http_status(:success)
       expect(game.name).to eq("New Game")
     end
+
+
+
+    # it "should sucessfully add pices to board" do
+      # post :create
+    # end
   end
 end
