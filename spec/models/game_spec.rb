@@ -5,7 +5,8 @@ RSpec.describe Game, type: :model do
   describe "populate_game" do
 
     it "should populate pieces onto board correctly" 
-    game = FactoryBot.create(:game)
-    expect(pawn.position_y).to eq(1 || 6)
+      game = FactoryBot.create(:game)
+      expect(pawn.position_y).to eq(1 || 6)
+    end
   end
 end
