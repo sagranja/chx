@@ -9,4 +9,3 @@ RSpec.describe Game, type: :model do
       expect(pawn.position_y).to eq(1 || 6)
     end
   end
-end
