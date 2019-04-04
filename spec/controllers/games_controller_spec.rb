@@ -9,11 +9,6 @@ RSpec.describe GamesController, type: :controller do
       get :show, params: { id: game.id }
       expect(response).to have_http_status(:success)
     end
-
-    it "should return a 404 error if the game is not found" do
-      get :show, params: { id: 'NADA' }
-      expect(response).to have_http_status(:not_found)
-    end
   end
 
   describe "games#create action" do
