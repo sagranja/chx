@@ -11,3 +11,6 @@ RSpec.describe King, :type => :model do
   end
 end
 
+RSpec.describe King, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
+end
