@@ -1,12 +1,14 @@
 <center><h1>ChessBoard</h1></center>
 
 <table>
-  <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  <% (0..7).each do |row| %>
+    <tr>
+    <% (0..7).each do |col| %>
+      <td id= <%= "#{col}#{row}"%>>
+        <%= @game.find_piece_by_cordinate(col, row)&.type %>
+      </td>
+    <% end %>
+    </tr>
+  <% end %>
 </table>
+
