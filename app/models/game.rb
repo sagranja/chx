@@ -4,6 +4,10 @@ class Game < ApplicationRecord
 
   after_create :populate_board!
 
+  def find_piece_by_cordinate(x, y)
+    pieces.find_by(position_x: x, position_y: y)
+  end
+
 
    def populate_board!
 
