@@ -13,10 +13,10 @@ class Piece < ApplicationRecord
   def position
   end
   
-  def move 
+  def move_to(position_x, position_y)
   end
   
-  def captured
+  def capture(position_x, position_y)
   end
   
   def is_obstructed?
