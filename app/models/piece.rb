@@ -13,10 +13,22 @@ class Piece < ApplicationRecord
   def position
   end
   
-  def move 
+  def move_to!(new_x, new_y)
+    @target == game.pieces.find_by(position_x: new_x, position_y: new_y).nil?
+    space_open == target.nil?
+
+    if space_open
+      Piece.update_attributes(:position_x => new_x, :position_y => new_y)
+    elsif @target.color == Piece.color
+      return false
+    else
+      @target.capture
+    end
   end
   
-  def captured
+  def capture
+    update_attributes(:position_x => new_x, :position_y => new_y)
+    @target.update_attributes(:x_position => nil, :y_position => nil)
   end
   
   def is_obstructed?
@@ -29,16 +41,7 @@ class Piece < ApplicationRecord
     y_arr = (y1..y2).to_a
 
     # Determine slope - if slope is vertical
-    if (y2 == y1) && (x2 == x1)
-      fail "path isn't vertical, horizontal, or diagonal"
-      return false
-    elsif y2 == y1
-      $slope = :horizontal
-    elsif x2 == x1
-      $slope = :vertical
-    elsif ($slope.to_i == -1) || ($slope.to_i == 1)
-      $slope = :diagonal
-    end
+    slope_direction(x1, x2, y1, y2)
 
     # check for obstructions
     if $slope == :horizontal
@@ -52,6 +55,19 @@ class Piece < ApplicationRecord
     else
       x_arr.zip(y_arr).each do |x, y|
         return true if game.pieces.where({position_x: x, position_y: y}).present?
+      end
+    end
+
+    def slope_direction(x1, x2, y1, y2)
+      if (y2 == y1) && (x2 == x1)
+        fail "path isn't vertical, horizontal, or diagonal"
+        return false
+      elsif y2 == y1
+        $slope = :horizontal
+      elsif x2 == x1
+        $slope = :vertical
+      elsif ($slope.to_i == -1) || ($slope.to_i == 1)
+        $slope = :diagonal
       end
     end
   end
