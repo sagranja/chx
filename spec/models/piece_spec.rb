@@ -21,7 +21,5 @@ RSpec.describe Piece, type: :model do
       expect(pawn.position_y).to eq(2)
       expect(king.position_x).to be_nil
       expect(king.position_y).to be_nil
-    end
-  end
-  
+    end  
 end
