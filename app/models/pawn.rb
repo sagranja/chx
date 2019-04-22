@@ -2,7 +2,7 @@ class Pawn < Piece
 
   def valid_move?(x, y) 
     if self.is_obstructed?(x, y) 
-      return false 
+          return false 
     end
     if position_x != x
       return false  

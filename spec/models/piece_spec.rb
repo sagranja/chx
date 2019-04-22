@@ -15,7 +15,7 @@ RSpec.describe Piece, type: :model do
       board = FactoryBot.create(:game)
       board.pieces.delete_all
       king = FactoryBot.create(:king)
-      pawn = FactoryBot.create(:pawn)
+      pawn = FactoryBot.create(:queen)
       pawn.move_to!(2, 2)
       expect(pawn.position_x).to eq(2)
       expect(pawn.position_y).to eq(2)

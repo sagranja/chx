@@ -6,8 +6,8 @@ FactoryBot.define do
     add_attribute( :position_y) {0}
   end
 
-  factory :pawn, parent: :piece do
-    add_attribute( :type) {"Pawn"}
+  factory :queen, parent: :piece do
+    add_attribute( :type) {"Queen"}
     add_attribute( :position_x) {1}
     add_attribute( :position_y) {1}
     add_attribute( :color) {false}
