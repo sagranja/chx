@@ -3,32 +3,30 @@ class Piece < ApplicationRecord
 
   # self.inheritance_column = :type (default)
 
+  attr_accessor :target
+
   def self.type
     %w(Bishop King Knight Pawn Queen Rook)
   end
-
-  def color
-  end
-  
-  def position
-  end
   
   def move_to!(new_x, new_y)
-    @target == game.pieces.find_by(position_x: new_x, position_y: new_y).nil?
-    space_open == target.nil?
+    @target = game.pieces.find_by(position_x: new_x, position_y: new_y)
+    space_open = @target.nil?
 
     if space_open
-      Piece.update_attributes(:position_x => new_x, :position_y => new_y)
-    elsif @target.color == Piece.color
+      update(:position_x => new_x, :position_y => new_y)
+    elsif @target.color == color
       return false
     else
-      @target.capture
+      #capture(@target, new_x, new_y)
+      @target.update(:position_x => nil, :position_y => nil)
+      @target.save!
+      update(:position_x => new_x, :position_y => new_y)
     end
   end
   
-  def capture
-    update_attributes(:position_x => new_x, :position_y => new_y)
-    @target.update_attributes(:x_position => nil, :y_position => nil)
+  def capture(target, new_x, new_y)
+
   end
   
   def is_obstructed?
