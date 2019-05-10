@@ -3,20 +3,30 @@ class Piece < ApplicationRecord
 
   # self.inheritance_column = :type (default)
 
+  attr_accessor :target
+
   def self.type
     %w(Bishop King Knight Pawn Queen Rook)
   end
+  
+  def move_to!(new_x, new_y)
+    @target = game.pieces.find_by(position_x: new_x, position_y: new_y)
+    space_open = @target.nil?
 
-  def color
+    if space_open
+      update(:position_x => new_x, :position_y => new_y)
+    elsif @target.color == color
+      return false
+    else
+      #capture(@target, new_x, new_y)
+      @target.update(:position_x => nil, :position_y => nil)
+      @target.save!
+      update(:position_x => new_x, :position_y => new_y)
+    end
   end
   
-  def position
-  end
-  
-  def move 
-  end
-  
-  def captured
+  def capture(target, new_x, new_y)
+
   end
   
   def is_obstructed?
@@ -29,16 +39,7 @@ class Piece < ApplicationRecord
     y_arr = (y1..y2).to_a
 
     # Determine slope - if slope is vertical
-    if (y2 == y1) && (x2 == x1)
-      fail "path isn't vertical, horizontal, or diagonal"
-      return false
-    elsif y2 == y1
-      $slope = :horizontal
-    elsif x2 == x1
-      $slope = :vertical
-    elsif ($slope.to_i == -1) || ($slope.to_i == 1)
-      $slope = :diagonal
-    end
+    slope_direction(x1, x2, y1, y2)
 
     # check for obstructions
     if $slope == :horizontal
@@ -52,6 +53,19 @@ class Piece < ApplicationRecord
     else
       x_arr.zip(y_arr).each do |x, y|
         return true if game.pieces.where({position_x: x, position_y: y}).present?
+      end
+    end
+
+    def slope_direction(x1, x2, y1, y2)
+      if (y2 == y1) && (x2 == x1)
+        fail "path isn't vertical, horizontal, or diagonal"
+        return false
+      elsif y2 == y1
+        $slope = :horizontal
+      elsif x2 == x1
+        $slope = :vertical
+      elsif ($slope.to_i == -1) || ($slope.to_i == 1)
+        $slope = :diagonal
       end
     end
   end

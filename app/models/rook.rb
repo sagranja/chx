@@ -1,9 +1,7 @@
 class Rook < Piece
 
-  def valid_move?(x, y) 
-    if self.is_obstructed?(x, y) 
-      return false
-    end
+  def valid_move?(x, y)
+    return false if self.is_obstructed?(x, y)
     if position_x == x && position_y != y 
       return true
     end
@@ -11,4 +9,5 @@ class Rook < Piece
       return true
     end
     return false
+  end
 end
